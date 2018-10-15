@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Notes</string>
+    <string name="nota">Nota</string>
+    <string name="zag">Zagolovok</string>
+    <string name="confBut">Create Note</string>
+    <string name="confBut2">Save Note</string>
+    <string name="addBut">Add Note</string>
+</resources>
