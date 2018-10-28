@@ -10,7 +10,7 @@ import java.util.Calendar;
 
 public class editActivity extends AppCompatActivity {
 
-    NoteDataBase db;
+    NoteDatabase db;
     NoteDao dbdao;
 
     EditText tti;
@@ -22,7 +22,7 @@ public class editActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
-        db = NoteDataBase.getDatabase(this);
+        db = NoteDatabase.getDatabase(this);
         dbdao = db.getNoteDao();
 
         edNote = dbdao.getNote(getIntent().getExtras().getInt("num"));
@@ -37,8 +37,16 @@ public class editActivity extends AppCompatActivity {
         edNote.title = tti.getText().toString();
         edNote.text = txi.getText().toString();
         edNote.date = Calendar.getInstance().toString();
+
         Log.e("baza", "obnovili");
-        dbdao.update(edNote);
+        Thread thr = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                dbdao.update(edNote);
+            }
+        });
+        thr.setDaemon(true);
+        thr.start();
 
 		finish();
 		}

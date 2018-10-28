@@ -18,13 +18,13 @@ public interface NoteDao {
     @Update
     void update(Note note);
 
-    @Query("SELECT * FROM note")
+    @Query("SELECT * FROM notes")
     List<Note> getAll();
 
-    @Query("SELECT * FROM note WHERE note._id = :id")
+    @Query("SELECT * FROM notes WHERE notes._id = :id")
     Note getNote(int id);
 
-    @Query("SELECT * FROM note WHERE note._id = 0")
+    @Query("SELECT * FROM notes WHERE notes._id = 0")
     Cursor getFirstCursor();
 
 }

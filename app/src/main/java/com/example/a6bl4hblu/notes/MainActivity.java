@@ -14,9 +14,9 @@ import android.widget.SimpleCursorAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
-    NoteDataBase db;
+    NoteDatabase db;
     NoteDao dbdao;
-    SimpleCursorAdapter sc;
+    //SimpleCursorAdapter sc;
     ListView lv;
     Context cont;
 
@@ -25,12 +25,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        db = NoteDataBase.getDatabase(this);
+        db = NoteDatabase.getDatabase(this);
         dbdao = db.getNoteDao();
 
         lv = (ListView) findViewById(R.id.lv);
-        sc = updateDB(this);
-        lv.setAdapter(sc);
+        //sc = updateDB(this);
+        lv.setAdapter(updateDB(this));
 		cont = this;
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -47,18 +47,19 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         setContentView(R.layout.activity_main);
 
-        sc.notifyDataSetChanged();
+        //sc.notifyDataSetChanged();
         //sc = updateDB(this);
         Log.e("baza", "set odapatr");
-        lv.setAdapter(sc);
-        //setContentView(R.layout.activity_main);
+        lv.setAdapter(updateDB(this));
+        setContentView(R.layout.activity_main);
     }
 
     public SimpleCursorAdapter updateDB(Context cont) {
-        Cursor c = dbdao.getFirstCursor();
-        String[] from = { c.getColumnName(1), c.getColumnName(3) };
+        //Cursor c = dbdao.getFirstCursor();
+        //String[] from = { c.getColumnName(1), c.getColumnName(3) };
+        String[] from = { "title", "date" };
         int[] to = { R.id.titleList, R.id.dateList };
-        return new SimpleCursorAdapter(cont, R.layout.list_net, c, from, to);
+        return new SimpleCursorAdapter(cont, R.layout.list_net, null, from, to);
     }
 
     public void addClick(View v) {

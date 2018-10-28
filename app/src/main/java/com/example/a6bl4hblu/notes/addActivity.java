@@ -10,25 +10,34 @@ import java.util.Calendar;
 
 public class addActivity extends AppCompatActivity {
 
-    NoteDataBase db;
+    NoteDatabase db;
     NoteDao dbdao;
+    Note n;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
-        db = NoteDataBase.getDatabase(this);
+        db = NoteDatabase.getDatabase(this);
         dbdao = db.getNoteDao();
     }
 
     public void confClick(View v) {
         EditText tti = (EditText) findViewById(R.id.titleInput);
         EditText txi = (EditText) findViewById(R.id.textInput);
-        int id = dbdao.getAll().size();
-        Note n = new Note(id, tti.getText().toString(), txi.getText().toString(), Calendar.getInstance().toString());
+       // int id = dbdao.getAll().size();
+        n = new Note(tti.getText().toString(), txi.getText().toString(), Calendar.getInstance().toString());
+
         Log.e("baza", "dobavili");
-        dbdao.insert(n);
+        Thread thr = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                dbdao.insert(n);
+            }
+        });
+        thr.setDaemon(true);
+        thr.start();
 		
 		finish();
     }
