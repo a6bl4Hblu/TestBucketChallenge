@@ -24,7 +24,4 @@ public interface NoteDao {
     @Query("SELECT * FROM notes WHERE notes._id = :id")
     Note getNote(int id);
 
-    @Query("SELECT * FROM notes WHERE notes._id = 0")
-    Cursor getFirstCursor();
-
 }

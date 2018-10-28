@@ -26,7 +26,6 @@ public class addActivity extends AppCompatActivity {
     public void confClick(View v) {
         EditText tti = (EditText) findViewById(R.id.titleInput);
         EditText txi = (EditText) findViewById(R.id.textInput);
-       // int id = dbdao.getAll().size();
         n = new Note(tti.getText().toString(), txi.getText().toString(), Calendar.getInstance().toString());
 
         Log.e("baza", "dobavili");

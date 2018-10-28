@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
 
     NoteDatabase db;
     NoteDao dbdao;
-    //SimpleCursorAdapter sc;
     ListView lv;
     Context cont;
 
@@ -29,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
         dbdao = db.getNoteDao();
 
         lv = (ListView) findViewById(R.id.lv);
-        //sc = updateDB(this);
         lv.setAdapter(updateDB(this));
 		cont = this;
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -47,16 +45,12 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         setContentView(R.layout.activity_main);
 
-        //sc.notifyDataSetChanged();
-        //sc = updateDB(this);
         Log.e("baza", "set odapatr");
         lv.setAdapter(updateDB(this));
         setContentView(R.layout.activity_main);
     }
 
     public SimpleCursorAdapter updateDB(Context cont) {
-        //Cursor c = dbdao.getFirstCursor();
-        //String[] from = { c.getColumnName(1), c.getColumnName(3) };
         String[] from = { "title", "date" };
         int[] to = { R.id.titleList, R.id.dateList };
         return new SimpleCursorAdapter(cont, R.layout.list_net, null, from, to);
